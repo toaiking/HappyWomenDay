@@ -1,0 +1,510 @@
+{
+  "shop": {
+    "name": "TUN TEA",
+    "slogan": "Trà Sữa & Cà Phê Chuẩn Vị",
+    "address": "32 Nguyễn Thái Học - Dĩ An - Bình Dương",
+    "phone": "0975270399",
+    "zalo": "0975270399",
+    "openingHours": "T2 -> T6, CN: 9h - 21h | T7: 9h - 16h",
+    "bank": {
+      "bankId": "970436",
+      "bankCode": "VCB",
+      "bankName": "Vietcombank",
+      "accountNumber": "0411001079352",
+      "accountHolder": "NGUYEN THANH TUAN"
+    },
+    "policies": {
+      "freeShipMinCups": 3,
+      "freeShipNote": "Đơn trên 3 ly free ship dưới 2km (Trên 2km hỗ trợ ship)",
+      "promoThreshold": 10,
+      "promoReward": "Tặng 1 ly miễn phí cho mỗi 10 ly"
+    }
+  },
+  "categories": [
+    { "id": "all", "name": "Tất Cả", "icon": "✨" },
+    { "id": "ca-phe", "name": "Cà Phê", "icon": "☕" },
+    { "id": "tra-sua", "name": "Trà Sữa (700ml)", "icon": "🧋" },
+    { "id": "sua-tuoi", "name": "Sữa Tươi (700ml)", "icon": "🥛" },
+    { "id": "tra-trai-cay", "name": "Trà Trái Cây (700ml)", "icon": "🍹" },
+    { "id": "nuoc-ep", "name": "Nước Ép (700ml)", "icon": "🍊" },
+    { "id": "sua-chua", "name": "Sữa Chua (700ml)", "icon": "🍨" },
+    { "id": "banh-flan", "name": "Bánh Flan", "icon": "🍮" },
+    { "id": "mon-khac", "name": "Món Khác (700ml)", "icon": "🥤" }
+  ],
+  "items": [
+    {
+      "id": "cp-den",
+      "name": "Cà phê đen",
+      "category": "ca-phe",
+      "sizes": { "M": 12000, "L": 17000 },
+      "defaultSize": "M",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "cp-sua",
+      "name": "Cà phê sữa",
+      "category": "ca-phe",
+      "sizes": { "M": 15000, "L": 20000 },
+      "defaultSize": "M",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "cp-muoi",
+      "name": "Cà phê muối",
+      "category": "ca-phe",
+      "sizes": { "M": 20000, "L": 25000 },
+      "defaultSize": "M",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Best Seller"
+    },
+    {
+      "id": "cp-sua-tuoi",
+      "name": "Cà phê sữa tươi",
+      "category": "ca-phe",
+      "sizes": { "M": 20000, "L": 25000 },
+      "defaultSize": "M",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "bac-xiu",
+      "name": "Bạc xỉu",
+      "category": "ca-phe",
+      "sizes": { "M": 20000, "L": 25000 },
+      "defaultSize": "M",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ts-truyen-thong-tc",
+      "name": "Trà sữa truyền thống trân châu",
+      "category": "tra-sua",
+      "price": 25000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ts-truyen-thong-full",
+      "name": "Trà sữa truyền thống (full topping)",
+      "category": "tra-sua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Yêu thích"
+    },
+    {
+      "id": "ts-matcha-full",
+      "name": "Trà sữa Matcha (full topping)",
+      "category": "tra-sua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ts-socola-full",
+      "name": "Trà sữa Socola (full topping)",
+      "category": "tra-sua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ts-kem-muoi",
+      "name": "Trà sữa kem muối (có trân châu)",
+      "category": "tra-sua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ts-pho-mai-cheese-ball",
+      "name": "Trà sữa phô mai cheese ball (có trân châu)",
+      "category": "tra-sua",
+      "price": 35000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Đặc biệt"
+    },
+    {
+      "id": "st-matcha-latte",
+      "name": "Matcha Latte",
+      "category": "sua-tuoi",
+      "price": 25000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Best Seller"
+    },
+    {
+      "id": "st-cacao-latte",
+      "name": "Cacao Latte",
+      "category": "sua-tuoi",
+      "price": 25000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "st-matcha-sua-hong",
+      "name": "Matcha sữa hồng",
+      "category": "sua-tuoi",
+      "price": 25000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "st-matcha-kem-muoi",
+      "name": "Matcha kem muối",
+      "category": "sua-tuoi",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "st-cacao-kem-muoi",
+      "name": "Cacao kem muối",
+      "category": "sua-tuoi",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "st-dac-rim",
+      "name": "Sữa tươi đác rim",
+      "category": "sua-tuoi",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "st-duong-den",
+      "name": "Sữa tươi đường đen",
+      "category": "sua-tuoi",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Cực phẩm"
+    },
+    {
+      "id": "flan-1",
+      "name": "Bánh Flan (1 cái)",
+      "category": "banh-flan",
+      "price": 6000,
+      "hasIceSugar": false,
+      "popular": false
+    },
+    {
+      "id": "flan-2-tc",
+      "name": "Bánh Flan phần 2 cái + trân châu đen",
+      "category": "banh-flan",
+      "price": 25000,
+      "hasIceSugar": false,
+      "popular": false
+    },
+    {
+      "id": "flan-3-full",
+      "name": "Bánh Flan phần 3 cái (full topping)",
+      "category": "banh-flan",
+      "price": 40000,
+      "hasIceSugar": false,
+      "popular": true,
+      "badge": "Tráng miệng ngon"
+    },
+    {
+      "id": "ttc-tac-ngoc-trai",
+      "name": "Trà tắc ngọc trai",
+      "category": "tra-trai-cay",
+      "price": 20000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-chanh-ngoc-trai",
+      "name": "Trà chanh ngọc trai",
+      "category": "tra-trai-cay",
+      "price": 20000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-lai-hoa-hong",
+      "name": "Trà lài hoa hồng",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-lai-long-nhan",
+      "name": "Trà lài long nhãn",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-lai-dac-thom",
+      "name": "Trà lài đác thơm",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-ngu-vi",
+      "name": "Trà ngũ vị",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Đặc trưng"
+    },
+    {
+      "id": "ttc-dao-cam-sa",
+      "name": "Trà đào cam sả",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-dau-say-deo",
+      "name": "Trà dâu sấy dẻo",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-mang-cau",
+      "name": "Trà mãng cầu",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Hot Trend"
+    },
+    {
+      "id": "ttc-mang-cau-chanh-leo",
+      "name": "Trà mãng cầu chanh leo",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-hibiscus-dao",
+      "name": "Trà hibiscus đào",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-hibiscus-chuoi-ngoc",
+      "name": "Trà hibiscus chuỗi ngọc",
+      "category": "tra-trai-cay",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ttc-lucky-tea",
+      "name": "Trà lucky tea (đậm trà)",
+      "category": "tra-trai-cay",
+      "price": 35000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Signature"
+    },
+    {
+      "id": "ne-cam",
+      "name": "Nước ép cam",
+      "category": "nuoc-ep",
+      "price": 25000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ne-oi",
+      "name": "Nước ép ổi",
+      "category": "nuoc-ep",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ne-thom",
+      "name": "Nước ép thơm",
+      "category": "nuoc-ep",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ne-ca-rot",
+      "name": "Nước ép cà rốt",
+      "category": "nuoc-ep",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ne-dua-hau",
+      "name": "Nước ép dưa hấu",
+      "category": "nuoc-ep",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "ne-thap-cam",
+      "name": "Nước ép thập cẩm",
+      "category": "nuoc-ep",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Bổ dưỡng"
+    },
+    {
+      "id": "sc-dao",
+      "name": "Sữa chua đào",
+      "category": "sua-chua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "sc-vai",
+      "name": "Sữa chua vải",
+      "category": "sua-chua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "sc-dau",
+      "name": "Sữa chua dâu",
+      "category": "sua-chua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "sc-dac-rim",
+      "name": "Sữa chua đác rim",
+      "category": "sua-chua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "sc-chanh-day",
+      "name": "Sữa chua chanh dây",
+      "category": "sua-chua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "sc-viet-quat",
+      "name": "Sữa chua việt quất",
+      "category": "sua-chua",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Thanh mát"
+    },
+    {
+      "id": "mk-da-me",
+      "name": "Đá me",
+      "category": "mon-khac",
+      "price": 25000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "mk-milo-dam",
+      "name": "Milo dầm",
+      "category": "mon-khac",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": true,
+      "badge": "Siêu hot"
+    },
+    {
+      "id": "mk-mang-cau-dam",
+      "name": "Mãng cầu dầm",
+      "category": "mon-khac",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    },
+    {
+      "id": "mk-tac-xi-muoi-dac-rim",
+      "name": "Tắc xí muội đác rim",
+      "category": "mon-khac",
+      "price": 30000,
+      "size": "L (700ml)",
+      "hasIceSugar": true,
+      "popular": false
+    }
+  ],
+  "toppings": [
+    { "id": "top-dao", "name": "3 Miếng đào", "price": 5000 },
+    { "id": "top-vai", "name": "2 Trái vải", "price": 5000 },
+    { "id": "top-nhan", "name": "3 Trái nhãn", "price": 5000 },
+    { "id": "top-dac", "name": "5 Hạt đác", "price": 5000 },
+    { "id": "top-dau-say", "name": "Dâu sấy dẻo", "price": 5000 },
+    { "id": "top-thach", "name": "Thạch", "price": 5000 },
+    { "id": "top-pudding", "name": "Pudding", "price": 5000 },
+    { "id": "top-tc-den", "name": "Trân châu đen", "price": 5000 },
+    { "id": "top-tc-trang", "name": "Trân châu trắng", "price": 5000 },
+    { "id": "top-cheese-ball", "name": "Cheese Ball (3 viên)", "price": 5000 },
+    { "id": "top-chuoi-ngoc", "name": "Hạt chuỗi ngọc", "price": 7000 },
+    { "id": "top-pho-mai-bo-cuoi", "name": "Phô mai bò cười", "price": 7000 },
+    { "id": "top-kem-muoi", "name": "Kem muối", "price": 10000 }
+  ]
+}

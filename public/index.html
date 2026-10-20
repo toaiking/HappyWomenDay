@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUN TEA - Gom Order Trà Sữa Mừng Ngày 20-10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Petals Canvas -->
+  <canvas id="petals-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <img src="assets/tuntea_logo.jpg" alt="Tun Tea Logo" class="brand-logo">
+        <div class="brand-text">
+          <div class="brand-title">TUN TEA <span class="badge-2010">🌸 20-10 Special</span></div>
+          <div class="brand-sub">Trà Sữa & Cà Phê • Dĩ An, Bình Dương</div>
+        </div>
+      </div>
+
+      <!-- Quick Session Live Stats -->
+      <div class="header-stats">
+        <div class="stat-pill" title="Tổng số ly hiện tại">
+          <span class="stat-icon">🧋</span>
+          <span class="stat-value" id="header-cup-count">0 ly</span>
+        </div>
+        <div class="stat-pill promo-pill" id="header-promo-pill" title="Chương trình 10 ly tặng 1 ly">
+          <span class="stat-icon">🎁</span>
+          <span class="stat-value" id="header-promo-status">10 tặng 1</span>
+        </div>
+        <div class="lock-status-badge" id="header-lock-badge">
+          <span class="status-dot green"></span> Đang nhận món
+        </div>
+      </div>
+
+      <!-- Header Action Buttons -->
+      <div class="header-actions">
+        <button id="btn-open-share" class="btn btn-outline" title="Chia sẻ mã QR cho mọi người">
+          <span class="btn-icon">📱</span> Chia sẻ QR / Link
+        </button>
+        <button id="btn-toggle-petals" class="btn btn-icon-only" title="Bật/Tắt hiệu ứng hoa rơi 20-10">
+          🌸
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Hero / 20-10 Festive Greeting -->
+    <section class="hero-banner">
+      <div class="hero-image-wrap">
+        <img src="assets/banner_2010.jpg" alt="Chúc mừng 20-10" class="hero-banner-img">
+        <div class="hero-overlay">
+          <div class="hero-greeting">
+            <span class="hero-tag">💐 MỪNG NGÀY PHỤ NỮ VIỆT NAM 20-10 💐</span>
+            <h1 class="hero-title" id="session-title-display">Đơn Trà Sữa Mừng Ngày 20-10</h1>
+            <p class="hero-desc" id="session-desc-display">
+              Chúc toàn thể phái đẹp luôn rạng rỡ, ngọt ngào và hạnh phúc! Chọn ngay thức uống yêu thích cùng TUN TEA.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Promotion Tracker Banner -->
+      <div class="promo-tracker-card">
+        <div class="tracker-info">
+          <div class="tracker-text">
+            <strong>Ưu đãi TUN TEA:</strong> 
+            <span id="promo-calc-text">Đơn 10 ly tặng 1 ly • Đơn từ 3 ly FREESHIP dưới 2km!</span>
+          </div>
+          <div class="tracker-reward" id="promo-reward-badge">
+            🎉 Đã tặng: <span id="free-cups-count">0</span> ly
+          </div>
+        </div>
+        <div class="tracker-progress-bar">
+          <div class="tracker-progress-fill" id="promo-progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="tracker-subtext" id="promo-next-step">
+          Cần thêm 10 ly nữa để được tặng ly đầu tiên!
+        </div>
+      </div>
+    </section>
+
+    <!-- App Tabs Navigation -->
+    <nav class="app-tabs-nav">
+      <button class="tab-btn active" data-tab="tab-menu">
+        <span class="tab-icon">📖</span> Thực Đơn Chọn Món
+      </button>
+      <button class="tab-btn" data-tab="tab-orders">
+        <span class="tab-icon">📝</span> Danh Sách Đã Đặt <span class="tab-counter" id="tab-orders-badge">0</span>
+      </button>
+      <button class="tab-btn highlight-tab" data-tab="tab-summary">
+        <span class="tab-icon">👑</span> Chốt Đơn & Gửi Shop <span class="host-pill">Host</span>
+      </button>
+    </nav>
+
+    <!-- ==================== TAB 1: MENU & ORDER ==================== -->
+    <section id="tab-menu" class="tab-section active">
+      <!-- Search & Category Filters -->
+      <div class="menu-controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="menu-search-input" placeholder="Tìm tên món (cà phê muối, matcha, mãng cầu...)...">
+          <button id="btn-clear-search" class="btn-clear hidden">✕</button>
+        </div>
+
+        <div class="category-filters" id="category-filters-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Drink Cards Grid -->
+      <div class="menu-grid" id="menu-grid-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: LIVE ORDERS LIST ==================== -->
+    <section id="tab-orders" class="tab-section">
+      <div class="orders-header-row">
+        <div>
+          <h2 class="section-title">Danh Sách Mọi Người Đã Đặt</h2>
+          <p class="section-subtitle">Tự động cập nhật thời gian thực khi có người đặt món</p>
+        </div>
+        <div class="orders-quick-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-quick-order-tab">
+            ➕ Đặt Thêm Món
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="orders-empty-state" class="empty-state">
+        <div class="empty-icon">🧋</div>
+        <h3>Chưa có ai đặt món</h3>
+        <p>Hãy là người đầu tiên chọn món ngon để khai tiệc 20-10 nào!</p>
+        <button class="btn btn-primary" onclick="switchTab('tab-menu')">Xem Thực Đơn Ngay</button>
+      </div>
+
+      <!-- Grouped Orders List -->
+      <div id="orders-list-container" class="orders-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: HOST & SUMMARY ==================== -->
+    <section id="tab-summary" class="tab-section">
+      <div class="summary-hero-card">
+        <div class="summary-title-col">
+          <div class="host-badge">👑 BẢNG ĐIỀU KHIỂN CHỦ XỊ / CHỐT ĐƠN</div>
+          <h2>Tổng Hợp & Gửi Cho Quán TUN TEA</h2>
+          <p>Kiểm tra danh sách, tính tiền, áp dụng ưu đãi và sao chép nội dung gửi thẳng qua Zalo quán.</p>
+        </div>
+        <div class="summary-actions-col">
+          <button id="btn-toggle-lock" class="btn btn-warning">
+            <span id="btn-lock-icon">🔒</span> <span id="btn-lock-text">Khóa Order (Chốt sổ)</span>
+          </button>
+          <button id="btn-reset-session" class="btn btn-danger-outline btn-sm">
+            🔄 Bắt đầu đơn mới
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary KPI Cards -->
+      <div class="summary-kpis">
+        <div class="kpi-card">
+          <div class="kpi-label">Tổng Số Món Đã Đặt</div>
+          <div class="kpi-val" id="kpi-total-cups">0 ly</div>
+          <div class="kpi-sub" id="kpi-customers-count">0 người tham gia</div>
+        </div>
+        <div class="kpi-card accent-card">
+          <div class="kpi-label">Ưu Đãi Quán Tun Tea</div>
+          <div class="kpi-val" id="kpi-free-cups">Tặng 0 ly</div>
+          <div class="kpi-sub" id="kpi-freeship-status">Chưa đủ điều kiện freeship</div>
+        </div>
+        <div class="kpi-card primary-card">
+          <div class="kpi-label">Tổng Tiền Cần Thanh Toán</div>
+          <div class="kpi-val" id="kpi-total-amount">0 đ</div>
+          <div class="kpi-sub">Đã gồm tất cả topping</div>
+        </div>
+      </div>
+
+      <!-- Two-column Host Layout -->
+      <div class="host-grid">
+        <!-- Left: Aggregated Kitchen / Barista List for Shop -->
+        <div class="host-card">
+          <div class="card-header-flex">
+            <div>
+              <h3>📋 Danh Sách Pha Chế (Gửi Quán)</h3>
+              <p class="card-caption">Được tự động gộp theo tên món & phân loại đường đá</p>
+            </div>
+            <button id="btn-copy-shop-order" class="btn btn-primary btn-sm">
+              📋 Sao chép gửi Zalo
+            </button>
+          </div>
+
+          <div class="kitchen-list" id="kitchen-list-container">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Quick Action to Open Zalo -->
+          <div class="shop-direct-action">
+            <a href="https://zalo.me/0975270399" target="_blank" class="btn btn-zalo">
+              💬 Nhắn tin Zalo Quán Tun Tea (0975 270 399)
+            </a>
+            <div class="shop-meta">
+              📍 32 Nguyễn Thái Học, Dĩ An, Bình Dương • Giờ mở cửa: 9h - 21h
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Payment & Split Bill Details -->
+        <div class="host-card">
+          <div class="card-header-flex">
+            <div>
+              <h3>💳 Thanh Toán & Chia Tiền (20-10)</h3>
+              <p class="card-caption">Chọn chế độ tài trợ hoặc chia tiền cho từng người</p>
+            </div>
+          </div>
+
+          <!-- Sponsor / Split Mode Selector -->
+          <div class="sponsor-selector">
+            <label class="radio-chip">
+              <input type="radio" name="sponsorMode" value="sponsor_women" checked>
+              <span>🌸 Cánh mày râu bao Phái Đẹp</span>
+            </label>
+            <label class="radio-chip">
+              <input type="radio" name="sponsorMode" value="sponsor_all">
+              <span>🎉 Bao Toàn Bộ (Công ty / Mạnh thường quân)</span>
+            </label>
+            <label class="radio-chip">
+              <input type="radio" name="sponsorMode" value="split">
+              <span>⚖️ Tự túc theo món</span>
+            </label>
+          </div>
+
+          <!-- Individual Split Details -->
+          <div class="split-breakdown" id="split-breakdown-container">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- VietQR Bank Payment Box -->
+          <div class="vietqr-box">
+            <div class="vietqr-header">
+              <img src="https://api.vietqr.io/img/VIETQR.png" alt="VietQR" class="vietqr-brand">
+              <div class="vietqr-text">Quét mã chuyển khoản Vietcombank cho quán Tun Tea</div>
+            </div>
+            <div class="vietqr-body">
+              <img id="shop-vietqr-img" src="" alt="Mã VietQR Tun Tea" class="qr-img-preview">
+              <div class="vietqr-info">
+                <div><strong>Ngân hàng:</strong> Vietcombank (VCB)</div>
+                <div><strong>Số tài khoản:</strong> <span class="copyable-text" onclick="copyText('0411001079352')">0411001079352 📋</span></div>
+                <div><strong>Chủ tài khoản:</strong> NGUYEN THANH TUAN</div>
+                <div><strong>Số tiền:</strong> <span id="vietqr-amount-display" class="highlight-money">0 đ</span></div>
+                <div><strong>Nội dung:</strong> <span id="vietqr-memo-display">TUN TEA 20-10</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Print / Export Tools -->
+          <div class="export-actions">
+            <button id="btn-print-order" class="btn btn-outline btn-sm">🖨️ In Phiếu Order</button>
+            <button id="btn-export-csv" class="btn btn-outline btn-sm">📊 Xuất File Excel (CSV)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Bottom Order Bar (Mobile & Quick Access) -->
+  <aside class="sticky-cart-bar" id="sticky-cart-bar">
+    <div class="sticky-cart-inner">
+      <div class="cart-summary-text">
+        <span class="cart-count-badge" id="cart-bar-count">0</span>
+        <div class="cart-price-info">
+          <div class="cart-total-label">Tổng cộng:</div>
+          <div class="cart-total-value" id="cart-bar-total">0 đ</div>
+        </div>
+      </div>
+      <div class="cart-bar-buttons">
+        <button class="btn btn-light-pill" onclick="switchTab('tab-orders')">Xem danh sách</button>
+        <button class="btn btn-primary-pill" onclick="switchTab('tab-summary')">Chốt đơn 👑</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== MODAL: CUSTOMIZE DRINK ==================== -->
+  <div class="modal-overlay" id="customize-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="btn-close-modal">✕</button>
+      
+      <div class="modal-header">
+        <div class="modal-drink-tag" id="modal-drink-category">Trà Sữa</div>
+        <h2 class="modal-drink-title" id="modal-drink-name">Trà sữa truyền thống</h2>
+        <div class="modal-drink-price" id="modal-drink-price">30.000 đ</div>
+      </div>
+
+      <div class="modal-body">
+        <!-- Customer Info Input -->
+        <div class="form-group-card">
+          <label class="form-label required">👤 Người Đặt Món</label>
+          <div class="input-row">
+            <input type="text" id="order-customer-name" placeholder="Nhập tên của bạn (vd: Lan, Mai, Tuấn...)" class="form-input">
+            <div class="gender-toggle">
+              <label class="gender-btn female-btn active" id="btn-gender-female">
+                <input type="radio" name="gender" value="female" checked> 🌸 Nữ
+              </label>
+              <label class="gender-btn male-btn" id="btn-gender-male">
+                <input type="radio" name="gender" value="male"> 🧔 Nam
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20-10 Warm Wishes Input (Optional) -->
+        <div class="form-group-card special-wish-card">
+          <label class="form-label">💐 Lời chúc / Lời nhắn ngày 20-10 (Tùy chọn)</label>
+          <input type="text" id="order-wish" placeholder="VD: Chúc chị em 20-10 vui vẻ, tươi trẻ như hoa! 🌷" class="form-input">
+        </div>
+
+        <!-- Size Options (for Coffee or items with M/L) -->
+        <div class="form-group-card" id="size-options-group">
+          <label class="form-label">📏 Chọn Kích Thước (Size)</label>
+          <div class="options-pills" id="modal-sizes-container">
+            <!-- Dynamic sizes -->
+          </div>
+        </div>
+
+        <!-- Sugar & Ice Options (if applicable) -->
+        <div class="form-group-card" id="ice-sugar-group">
+          <div class="sugar-ice-grid">
+            <div>
+              <label class="form-label">🍬 Lượng Đường</label>
+              <select id="order-sugar" class="form-select">
+                <option value="100% Đường">100% Đường (Chuẩn)</option>
+                <option value="70% Đường">70% Đường</option>
+                <option value="50% Đường" selected>50% Đường (Vừa)</option>
+                <option value="30% Đường">30% Đường (Ít ngọt)</option>
+                <option value="0% Đường (Không đường)">0% Đường (Không ngọt)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">🧊 Lượng Đá</label>
+              <select id="order-ice" class="form-select">
+                <option value="100% Đá" selected>100% Đá (Chuẩn)</option>
+                <option value="70% Đá">70% Đá</option>
+                <option value="50% Đá">50% Đá (Ít đá)</option>
+                <option value="Không đá">Không đá</option>
+                <option value="Uống nóng">Uống nóng</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topping Multi-Selection -->
+        <div class="form-group-card">
+          <label class="form-label">✨ Thêm Topping Yêu Thích</label>
+          <div class="toppings-grid" id="modal-toppings-container">
+            <!-- Dynamic toppings -->
+          </div>
+        </div>
+
+        <!-- Custom Notes -->
+        <div class="form-group-card">
+          <label class="form-label">📝 Ghi Chú Riêng Cho Quán</label>
+          <input type="text" id="order-note" placeholder="VD: Để riêng đá, nhiều sữa, trân châu mềm..." class="form-input">
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <div class="modal-subtotal-box">
+          <div class="subtotal-label">Tổng tiền món này:</div>
+          <div class="subtotal-val" id="modal-subtotal-val">30.000 đ</div>
+        </div>
+        <button id="btn-submit-order" class="btn btn-primary btn-lg">
+          ➕ Thêm Vào Danh Sách
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: SHARE QR & LINK ==================== -->
+  <div class="modal-overlay" id="share-modal">
+    <div class="modal-card modal-sm">
+      <button class="modal-close" id="btn-close-share">✕</button>
+      <div class="share-modal-body">
+        <div class="share-icon-badge">📱</div>
+        <h2>Quét Mã Đặt Món</h2>
+        <p>Mở camera điện thoại quét mã QR bên dưới hoặc gửi link cho mọi người cùng chọn món:</p>
+        
+        <div class="qr-container">
+          <img id="share-qr-image" src="" alt="Mã QR tham gia order" class="share-qr-code">
+        </div>
+
+        <div class="share-url-box">
+          <input type="text" id="share-url-input" readonly class="share-url-input">
+          <button id="btn-copy-link" class="btn btn-primary btn-sm">Sao chép link</button>
+        </div>
+
+        <div class="share-tips">
+          💡 Mọi người trong cùng mạng Wi-Fi hoặc nội bộ công ty có thể vào ngay trên điện thoại để đặt món trong tích tắc!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Print Area (Hidden during screen view) -->
+  <div id="print-area" class="print-area"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
