@@ -194,15 +194,32 @@
         <div class="host-card">
           <div class="card-header-flex">
             <div>
-              <h3>📋 Danh Sách Pha Chế (Gửi Quán)</h3>
-              <p class="card-caption">Được tự động gộp theo tên món & phân loại đường đá</p>
+              <h3>📋 Bảng Tổng Hợp Pha Chế (Gửi Quán)</h3>
+              <p class="card-caption">Mật độ view cao • Tiết kiệm không gian • Tối ưu gửi Zalo</p>
             </div>
-            <button id="btn-copy-shop-order" class="btn btn-primary btn-sm">
-              📋 Sao chép gửi Zalo
-            </button>
+            <div class="card-btn-group">
+              <button id="btn-copy-shop-table" class="btn btn-primary btn-sm" title="Sao chép dạng bảng rút gọn tiết kiệm dòng">
+                📋 Sao chép Bảng Gọn (Zalo)
+              </button>
+              <button id="btn-copy-shop-order" class="btn btn-outline btn-sm" title="Sao chép dạng danh sách đầy đủ">
+                📝 Sao chép Danh Sách
+              </button>
+            </div>
           </div>
 
-          <div class="kitchen-list" id="kitchen-list-container">
+          <!-- View Mode Toggle: Table or Cards -->
+          <div class="view-mode-toggle">
+            <button class="view-toggle-btn active" id="btn-view-table">📊 Dạng Bảng Gọn</button>
+            <button class="view-toggle-btn" id="btn-view-cards">🗂️ Dạng Thẻ Món</button>
+          </div>
+
+          <!-- High-density Table View -->
+          <div class="kitchen-table-container" id="kitchen-table-container">
+            <!-- Rendered dynamically as high-density table -->
+          </div>
+
+          <!-- Fallback Cards View -->
+          <div class="kitchen-list hidden" id="kitchen-list-container">
             <!-- Rendered dynamically -->
           </div>
 
@@ -325,6 +342,21 @@
         <div class="form-group-card special-wish-card">
           <label class="form-label">💐 Lời chúc / Lời nhắn ngày 20-10 (Tùy chọn)</label>
           <input type="text" id="order-wish" placeholder="VD: Chúc chị em 20-10 vui vẻ, tươi trẻ như hoa! 🌷" class="form-input">
+        </div>
+
+        <!-- Quantity Stepper -->
+        <div class="form-group-card quantity-card">
+          <div class="quantity-row">
+            <div>
+              <label class="form-label" style="margin-bottom: 2px;">🔢 Số Lượng Ly</label>
+              <div class="quantity-sub">Chọn số ly muốn đặt cho món này</div>
+            </div>
+            <div class="stepper-controls">
+              <button type="button" class="btn-stepper" id="btn-qty-minus">−</button>
+              <input type="number" id="order-qty" value="1" min="1" max="50" class="qty-input">
+              <button type="button" class="btn-stepper" id="btn-qty-plus">+</button>
+            </div>
+          </div>
         </div>
 
         <!-- Size Options (for Coffee or items with M/L) -->

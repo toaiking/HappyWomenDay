@@ -1009,9 +1009,17 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-subtle);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-btn-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .card-header-flex h3 {
@@ -1023,6 +1031,195 @@ body {
 .card-caption {
   font-size: 0.78rem;
   color: var(--text-muted);
+}
+
+/* View Mode Toggle */
+.view-mode-toggle {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.view-toggle-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.view-toggle-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* High-Density Compact Table */
+.kitchen-table-container {
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.compact-dense-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.compact-dense-table th {
+  background: #fdfaf6;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 800;
+  color: var(--tea-dark);
+  border-bottom: 2px solid #fed7aa;
+  white-space: nowrap;
+}
+
+.compact-dense-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.compact-dense-table tbody tr:nth-child(even) {
+  background: #fafaf9;
+}
+
+.compact-dense-table tbody tr:hover {
+  background: #fff1f2;
+}
+
+.col-stt {
+  text-align: center;
+  font-weight: 700;
+  color: var(--text-light);
+  width: 32px;
+}
+
+.col-name {
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.col-qty {
+  text-align: center;
+  font-weight: 800;
+  color: var(--primary);
+  background: #fff1f2;
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.col-specs {
+  color: var(--text-muted);
+}
+
+.spec-line {
+  margin-bottom: 2px;
+}
+
+.spec-line:last-child {
+  margin-bottom: 0;
+}
+
+.spec-qty-tag {
+  font-weight: 700;
+  color: var(--primary);
+  margin-right: 4px;
+}
+
+.spec-badge-compact {
+  display: inline-block;
+  background: #f1f5f9;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.74rem;
+  margin-right: 4px;
+}
+
+.col-subtotal {
+  text-align: right;
+  font-weight: 800;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+/* Quantity Stepper in Modal */
+.quantity-card {
+  background: #fef2f2;
+  border-color: #fecdd3;
+}
+
+.quantity-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.quantity-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.stepper-controls {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #fecdd3;
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.btn-stepper {
+  width: 34px;
+  height: 34px;
+  background: #fff1f2;
+  border: none;
+  border-radius: 6px;
+  color: var(--primary);
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.btn-stepper:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.qty-input {
+  width: 48px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: inherit;
+}
+
+.qty-input:focus {
+  outline: none;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* Kitchen Barista Aggregation */

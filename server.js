@@ -12,13 +12,18 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const DATA_DIR = path.join(__dirname, 'data');
-const MENU_FILE = path.join(DATA_DIR, 'menu.json');
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT);
+const DATA_DIR = isServerless ? '/tmp' : path.join(__dirname, 'data');
+const MENU_FILE = path.join(__dirname, 'data', 'menu.json');
 const SESSION_FILE = path.join(DATA_DIR, 'session.json');
 
 // Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+} catch (e) {
+  // Read-only filesystem warning
 }
 
 // Initial session state
@@ -39,18 +44,26 @@ function loadSession() {
       const data = fs.readFileSync(SESSION_FILE, 'utf8');
       return JSON.parse(data);
     }
+    const bundledSession = path.join(__dirname, 'data', 'session.json');
+    if (fs.existsSync(bundledSession)) {
+      const data = fs.readFileSync(bundledSession, 'utf8');
+      return JSON.parse(data);
+    }
   } catch (err) {
-    console.error("Error reading session:", err);
+    console.error("Error reading session:", err.message);
   }
-  saveSession(DEFAULT_SESSION);
   return { ...DEFAULT_SESSION };
 }
 
 function saveSession(session) {
   try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
     fs.writeFileSync(SESSION_FILE, JSON.stringify(session, null, 2), 'utf8');
   } catch (err) {
-    console.error("Error saving session:", err);
+    // In Vercel serverless, writes outside /tmp fail; keep in memory
+    console.warn("File write skipped (serverless environment):", err.message);
   }
 }
 
@@ -160,6 +173,12 @@ app.post('/api/orders', (req, res) => {
   const newOrders = Array.isArray(req.body) ? req.body : [req.body];
   
   newOrders.forEach(item => {
+    const qty = Math.max(1, Number(item.quantity) || 1);
+    const basePrice = Number(item.basePrice) || 0;
+    const toppingTotal = Number(item.toppingTotal) || 0;
+    const unitPrice = basePrice + toppingTotal;
+    const totalPrice = Number(item.totalPrice) || (unitPrice * qty);
+
     const orderItem = {
       id: item.id || ('order_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6)),
       customerName: (item.customerName || 'Ẩn danh').trim(),
@@ -168,12 +187,14 @@ app.post('/api/orders', (req, res) => {
       drinkName: item.drinkName,
       category: item.category,
       size: item.size || 'L',
-      basePrice: Number(item.basePrice) || 0,
+      quantity: qty,
+      basePrice,
       sugar: item.sugar || '100% Đường',
       ice: item.ice || '100% Đá',
       toppings: Array.isArray(item.toppings) ? item.toppings : [],
-      toppingTotal: Number(item.toppingTotal) || 0,
-      totalPrice: Number(item.totalPrice) || (Number(item.basePrice) || 0),
+      toppingTotal,
+      unitPrice,
+      totalPrice,
       note: (item.note || '').trim(),
       wish: (item.wish || '').trim(),
       timestamp: item.timestamp || new Date().toISOString()
@@ -184,6 +205,25 @@ app.post('/api/orders', (req, res) => {
   saveSession(sessionState);
   broadcastUpdate('ORDER_ADDED', { count: newOrders.length });
   res.json({ success: true, count: newOrders.length, session: sessionState });
+});
+
+// Batch sync orders (useful for Vercel cold restarts or offline sync)
+app.post('/api/session/sync', (req, res) => {
+  const { orders } = req.body;
+  if (Array.isArray(orders) && orders.length > 0) {
+    orders.forEach(clientOrder => {
+      const exists = sessionState.orders.some(o => o.id === clientOrder.id);
+      if (!exists && clientOrder.drinkName) {
+        sessionState.orders.push({
+          ...clientOrder,
+          quantity: Math.max(1, Number(clientOrder.quantity) || 1)
+        });
+      }
+    });
+    saveSession(sessionState);
+    broadcastUpdate('SYNC_COMPLETED');
+  }
+  res.json({ success: true, session: sessionState });
 });
 
 // Update order
@@ -268,11 +308,15 @@ app.post('/api/session/reset', (req, res) => {
   res.json({ success: true, session: sessionState });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  const localIp = getLocalIp();
-  console.log(`\n======================================================`);
-  console.log(`🌸 TUN TEA 20-10 ORDER APP IS RUNNING! 🌸`);
-  console.log(`- Trực tiếp trên máy: http://localhost:${PORT}`);
-  console.log(`- Gửi cho mọi người (WiFi/LAN): http://${localIp}:${PORT}`);
-  console.log(`======================================================\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, '0.0.0.0', () => {
+    const localIp = getLocalIp();
+    console.log(`\n======================================================`);
+    console.log(`🌸 TUN TEA 20-10 ORDER APP IS RUNNING! 🌸`);
+    console.log(`- Trực tiếp trên máy: http://localhost:${PORT}`);
+    console.log(`- Gửi cho mọi người (WiFi/LAN): http://${localIp}:${PORT}`);
+    console.log(`======================================================\n`);
+  });
+}
+
+module.exports = app;
